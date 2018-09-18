@@ -20,13 +20,21 @@ export default class Home extends React.Component {
   render() {
     return (
       <HomeContainer>
-        <HomeButton>
+        <HomeButton onPress={this.goToPricing}>
           <ButtonText>HOUSE PRICES</ButtonText>
         </HomeButton>
-        <HomeButton>
+        <HomeButton onPress={this.goToFaceRecognition}>
           <ButtonText>FACE RECOGNITION</ButtonText>
         </HomeButton>
       </HomeContainer>
     );
+  }
+
+  goToPricing = () => {
+    this.props.navigation.navigate("Pricing")
+  }
+
+  goToFaceRecognition = () => {
+    this.props.navigation.navigate("FaceRecognition")
   }
 }
