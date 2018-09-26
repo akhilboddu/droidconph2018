@@ -11,16 +11,16 @@ import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
 const mutation = gql`
-  mutation TrainFace($name: String!, $base64: String!) {
-    addFace(name: $name, imageData: $base64) {
-      ok
+  mutation PredictFace($base64: String) {
+    recognizeFaces(imageData: $base64) {
+        names
     }
   }
 `
 
-class TrainFace extends React.Component {
+class PredictFace extends React.Component {
   static navigationOptions = {
-    title: 'Add Face',
+    title: 'Recognize Face',
     headerStyle: {
       backgroundColor: '#222',
     },
@@ -41,19 +41,18 @@ class TrainFace extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
-  takePhoto = addFace => async () => {
+  takePhoto = recognizeFaces => async () => {
     if (this.camera) {
       const { base64 } = await this.camera.takePictureAsync({
         base64: true
       })
 
       try {
-        const response = await addFace({variables: {
-          name: "JP",
+        const response = await recognizeFaces({variables: {
           base64
         }})
 
-        console.log(response)
+        console.log(response.data.recognizeFaces.names)
       } catch (err) {
         console.log("Query Failed")
         console.log(err)
@@ -71,7 +70,7 @@ class TrainFace extends React.Component {
       return (
         <Mutation mutation={mutation}>
           {
-            (addFace, {data}) => (
+            (recognizeFaces, {data}) => (
               <View style={{ flex: 1 }}>
                 <Camera ref={ref => { this.camera = ref; }} style={{ flex: 1 }} type={this.state.type}>
                 <View
@@ -105,7 +104,7 @@ class TrainFace extends React.Component {
                     alignSelf: 'flex-end',
                     alignItems: 'center',
                   }}
-                  onPress={this.takePhoto(addFace)}>
+                  onPress={this.takePhoto(recognizeFaces)}>
                     <Text
                     style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
                     {' '}Take Photo{' '}
@@ -122,4 +121,4 @@ class TrainFace extends React.Component {
   
 }
 
-export default TrainFace
+export default PredictFace

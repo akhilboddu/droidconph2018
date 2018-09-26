@@ -23,7 +23,7 @@ export default class FaceRecognition extends React.Component {
         <FaceButton onPress={this.goToTrainFace}>
           <ButtonText>TRAIN FACE</ButtonText>
         </FaceButton>
-        <FaceButton>
+        <FaceButton onPress={this.goToPredictFace}>
           <ButtonText>PREDICT FACE</ButtonText>
         </FaceButton>
       </FaceContainer>
@@ -32,5 +32,9 @@ export default class FaceRecognition extends React.Component {
 
   goToTrainFace = () => {
     this.props.navigation.navigate("TrainFace")
+  }
+
+  goToPredictFace = () => {
+    this.props.navigation.navigate("PredictFace")
   }
 }
