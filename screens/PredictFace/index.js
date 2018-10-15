@@ -1,10 +1,8 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Alert, Text, View, TouchableOpacity } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import {
-  FaceContainer,
-  FaceButton,
-  ButtonText
+  CenterButton
 } from './Styles'
 
 import gql from "graphql-tag";
@@ -33,7 +31,8 @@ class PredictFace extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    base64Photo: ""
+    base64Photo: "",
+    loading: false
   };
   
   async componentWillMount() {
@@ -42,6 +41,8 @@ class PredictFace extends React.Component {
   }
 
   takePhoto = recognizeFaces => async () => {
+    this.setState({loading: true})
+
     if (this.camera) {
       const { base64 } = await this.camera.takePictureAsync({
         base64: true
@@ -52,8 +53,13 @@ class PredictFace extends React.Component {
           base64
         }})
 
-        console.log(response.data.recognizeFaces.names)
+        this.setState({loading: false})
+
+        const {names} = response.data.recognizeFaces
+
+        Alert.alert("Predicted Faces", names.join(', '))
       } catch (err) {
+        this.setState({loading: false})
         console.log("Query Failed")
         console.log(err)
       }
@@ -61,7 +67,8 @@ class PredictFace extends React.Component {
   }
 
   render() {
-    const { hasCameraPermission } = this.state;
+    const { hasCameraPermission, loading } = this.state;
+
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
@@ -70,48 +77,19 @@ class PredictFace extends React.Component {
       return (
         <Mutation mutation={mutation}>
           {
-            (recognizeFaces, {data}) => (
+            (recognizeFaces, {_data}) => (
               <View style={{ flex: 1 }}>
-                <Camera ref={ref => { this.camera = ref; }} style={{ flex: 1 }} type={this.state.type}>
-                <View
-                style={{
-                  flex: 1,
-                  backgroundColor: 'transparent',
-                  flexDirection: 'row',
-                }}>
-                </View>
-                  <TouchableOpacity
-                  style={{
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center',
-                  }}
-                  onPress={() => {
-                    this.setState({
-                      type: this.state.type === Camera.Constants.Type.back
-                      ? Camera.Constants.Type.front
-                      : Camera.Constants.Type.back,
-                    });
-                  }}>
-                    <Text
-                    style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                    {' '}Flip{' '}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                  style={{
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center',
-                  }}
-                  onPress={this.takePhoto(recognizeFaces)}>
-                    <Text
-                    style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                    {' '}Take Photo{' '}
-                    </Text>
-                  </TouchableOpacity>
+                <Camera ref={ref => { this.camera = ref; }} style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }} type={this.state.type}>
+                  <CenterButton disabled={loading} onPress={this.takePhoto(recognizeFaces)}>
+                    { loading
+                        ? <ActivityIndicator size="large" animating={loading} color="#00ff00" style={{marginBottom: 10}} />
+                        : <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                            Recognize
+                          </Text>
+                    }
+                  </CenterButton>
                 </Camera>
-                </View>
+              </View>
             )
           }
         </Mutation>

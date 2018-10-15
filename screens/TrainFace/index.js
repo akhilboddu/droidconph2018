@@ -1,10 +1,9 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import {
-  FaceContainer,
-  FaceButton,
-  ButtonText
+  CenterButton,
+  NameBox
 } from './Styles'
 
 import gql from "graphql-tag";
@@ -33,7 +32,9 @@ class TrainFace extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    base64Photo: ""
+    base64Photo: "",
+    name: "",
+    loading: false
   };
   
   async componentWillMount() {
@@ -48,21 +49,32 @@ class TrainFace extends React.Component {
       })
 
       try {
+        this.setState({loading: true})
+
+        const {name} = this.state
+
         const response = await addFace({variables: {
-          name: "JP",
+          name,
           base64
         }})
 
+        this.setState({loading: false})
+
         console.log(response)
       } catch (err) {
+        this.setState({loading: false})
+
         console.log("Query Failed")
         console.log(err)
       }
     }
   }
 
+  setName = name => this.setState({name})
+
   render() {
-    const { hasCameraPermission } = this.state;
+    const { hasCameraPermission, loading } = this.state;
+
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
@@ -71,48 +83,20 @@ class TrainFace extends React.Component {
       return (
         <Mutation mutation={mutation}>
           {
-            (addFace, {data}) => (
+            (addFace, {_data}) => (
               <View style={{ flex: 1 }}>
-                <Camera ref={ref => { this.camera = ref; }} style={{ flex: 1 }} type={this.state.type}>
-                <View
-                style={{
-                  flex: 1,
-                  backgroundColor: 'transparent',
-                  flexDirection: 'row',
-                }}>
-                </View>
-                  <TouchableOpacity
-                  style={{
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center',
-                  }}
-                  onPress={() => {
-                    this.setState({
-                      type: this.state.type === Camera.Constants.Type.back
-                      ? Camera.Constants.Type.front
-                      : Camera.Constants.Type.back,
-                    });
-                  }}>
-                    <Text
-                    style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                    {' '}Flip{' '}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                  style={{
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center',
-                  }}
-                  onPress={this.takePhoto(addFace)}>
-                    <Text
-                    style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                    {' '}Take Photo{' '}
-                    </Text>
-                  </TouchableOpacity>
+                <Camera ref={ref => { this.camera = ref; }} style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }} type={this.state.type}>
+                  <NameBox onChangeText={this.setName} placeholder="Enter Name Here" value={this.state.name} />
+                  <CenterButton onPress={this.takePhoto(addFace)}>
+                    { loading
+                      ? <ActivityIndicator size="large" animating={loading} color="#00ff00" style={{marginBottom: 10}} />
+                      : <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                          Add Face
+                        </Text>
+                    }
+                  </CenterButton>
                 </Camera>
-                </View>
+              </View>
             )
           }
         </Mutation>

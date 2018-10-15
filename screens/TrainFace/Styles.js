@@ -1,19 +1,17 @@
 import styled from 'styled-components'
 
-export const FaceContainer = styled.View`
-    flex: 1;
-    justify-content: center;
+export const CenterButton = styled.TouchableOpacity`
+    flex: 0.1;
+    align-self: center;
     align-items: center;
-    background-color: #222;
 `
 
-export const FaceButton = styled.TouchableOpacity`
-    margin-bottom: 30px;
-`
-
-export const ButtonText = styled.Text`
+export const NameBox = styled.TextInput`
     color: #FAFAFA;
-    font-size: 24px;
-    font-weight: 200;
-    letter-spacing: 2px;
+    background-color: #333;
+    padding: 10px;
+    width: 200px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 `

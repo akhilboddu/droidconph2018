@@ -13,7 +13,8 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "jest"
+    "test": "jest",
+    "slides": "mdx-deck slides.mdx"
   },
   "jest": {
     "preset": "jest-expo"
@@ -23,6 +24,9 @@
     "expo": "^27.0.1",
     "got": "^9.2.0",
     "graphql": "^14.0.0",
+    "mdx-deck": "^1.7.7",
+    "mdx-deck-code-surfer": "^0.5.3",
+    "raw-loader": "^0.5.1",
     "react": "16.3.1",
     "react-apollo": "^2.1.11",
     "react-native": "~0.55.2",
