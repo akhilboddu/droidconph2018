@@ -14,7 +14,8 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "jest",
-    "slides": "mdx-deck slides.mdx"
+    "slides": "mdx-deck slides.mdx",
+    "slides:build": "mdx-deck build slides.mdx"
   },
   "jest": {
     "preset": "jest-expo"
