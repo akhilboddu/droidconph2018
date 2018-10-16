@@ -4,7 +4,8 @@ import {
     Pricing,
     FaceRecognition,
     TrainFace,
-    PredictFace
+    PredictFace,
+    PredictPrice
 } from './screens'
 
 export default createStackNavigator({
@@ -22,6 +23,9 @@ export default createStackNavigator({
   },
   PredictFace: {
     screen: PredictFace
+  },
+  PredictPrice: {
+    screen: PredictPrice
   }
 },
 {

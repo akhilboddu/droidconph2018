@@ -20,10 +20,14 @@ export default class Pricing extends React.Component {
   render() {
     return (
       <PricingContainer>
-        <PricingButton>
+        <PricingButton onPress={this.goToPredictPrice}>
           <ButtonText>PREDICT PRICE</ButtonText>
         </PricingButton>
       </PricingContainer>
     );
+  }
+
+  goToPredictPrice = () => {
+    this.props.navigation.navigate("PredictPrice")
   }
 }
