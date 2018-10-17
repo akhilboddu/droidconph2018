@@ -8,39 +8,80 @@ John Paul Ada
 
 ## React Native
 
+A React **renderer** that **renders to native** mobile components,
+allowing us to create near-native mobile apps in both **Android** and **iOS** with the same code.
+
 ---
 
 ## Machine Learning
+
+Allows a machine to **learn by experiencing** something,
+which allows us to do things with a computer **without explicitly programming** it to do so.
 
 ---
 
 ## Approaches to Machine Learning in React Native
 
+*How It Was Built* **+** *How To Access It*
+
 ---
 
 ### Azure ML Studio
 
-Create ML models in a drag & drop fashion and create a REST Web Service from the generated model.
+----
+
+*How It Was Built*: **Drag and Drop**
+
+*How To Access It*: **REST API**
 
 ---
 
 #### Code
 
-*REST call here*
+```javascript
+const response = await fetch(
+    AZURE_ML_URL,
+    {
+        headers: {}
+    }
+)
+```
+
+*Display with code surfer*
 
 ---
 
 ### Python model + GraphQL
 
+----
+
+*How It Was Built*: **Python library**
+
+*How To Access It*: **GraphQL API**
+
 ---
 
 #### Code
 
-*GraphQL API call here*
+```graphql
+mutation PredictFace($imageData: String) {
+    predictFace(imageData: $imageData) {
+        names
+    }
+}
+```
+
+*Display with code surfer*
 
 ---
 
 ### TensorFlow.js
+
+----
+
+*How It Was Built*: **tfjs-node**
+
+*How To Access It*: **Reading files**
 
 ---
 
