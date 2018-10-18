@@ -23,6 +23,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@tensorflow/tfjs-node": "^0.1.19",
     "apollo-boost": "^0.1.15",
     "expo": "^27.0.1",
     "got": "^9.2.0",

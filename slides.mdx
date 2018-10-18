@@ -1,3 +1,4 @@
+import { CodeSurfer } from "mdx-deck-code-surfer"
 export { future as theme } from 'mdx-deck/themes'
 
 # Machine Learning in React Native
@@ -36,18 +37,23 @@ which allows us to do things with a computer **without explicitly programming** 
 
 ---
 
-#### Code
-
-```javascript
-const response = await fetch(
-    AZURE_ML_URL,
-    {
-        headers: {}
-    }
-)
-```
-
-*Display with code surfer*
+<CodeSurfer
+  title="Requesting from Azure ML Studio"
+  code={require("!raw-loader!./snippets/azure-ml.js")}
+  lang="javascript"
+  showNumbers={true}
+  dark={true}
+  steps={[
+    { notes: "Fetch and display code"},
+    { lines: [1], notes: "Make a fetch request to the Azure ML URL" },
+    { lines: [2], notes: "Using a POST HTTP Method" },
+    { range: [3, 7], notes: "Add headers" },
+    { lines: [5], notes: "Use the Azure ML API Key" },
+    { range: [8, 16], notes: "Add the body of the request"},
+    { range: [19, 21], notes: "Get the value that we want from the request"},
+    { lines: [23], notes: "Display the value in a dialog" },
+  ]}
+/>
 
 ---
 
@@ -61,17 +67,34 @@ const response = await fetch(
 
 ---
 
-#### Code
+<CodeSurfer
+  title="Predicting the Face"
+  code={require("!raw-loader!./snippets/predict.graphql")}
+  lang="graphql"
+  showNumbers={true}
+  dark={true}
+  steps={[
+    { notes: "PredictFace mutation"},
+    { lines: [2], notes: "Accepts an imageData string that is a base64 encoded image" },
+    { lines: [3], notes: "Returns the names as a list of strings" },
+  ]}
+/>
 
-```graphql
-mutation PredictFace($imageData: String) {
-    predictFace(imageData: $imageData) {
-        names
-    }
-}
-```
+---
 
-*Display with code surfer*
+<CodeSurfer
+  title="Executing the Mutation"
+  code={require("!raw-loader!./snippets/predict.js")}
+  lang="javascript"
+  showNumbers={true}
+  dark={true}
+  steps={[
+    { notes: "Process the mutation request"},
+    { range: [1, 3], notes: "Runs the mutation given the base64 of an image as an argument" },
+    { lines: [5], notes: "Gets the list of the names from the response" },
+    { lines: [7], notes: "Displays the list on a dialog box" },
+  ]}
+/>
 
 ---
 
@@ -82,12 +105,6 @@ mutation PredictFace($imageData: String) {
 *How It Was Built*: **tfjs-node**
 
 *How To Access It*: **Reading files**
-
----
-
-#### Code
-
-*Show prediction call here*
 
 ---
 

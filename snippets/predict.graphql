@@ -1,0 +1,5 @@
+mutation PredictFace($base64: String) {
+    predictFace(imageData: $base64) {
+        names
+    }
+}
