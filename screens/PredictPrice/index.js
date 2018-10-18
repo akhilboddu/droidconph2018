@@ -2,7 +2,6 @@ import React from 'react';
 import {
     PricingContainer
 } from './Styles'
-import Config from 'react-native-config'
 
 export default class PredictPrice extends React.Component {
   static navigationOptions = {
