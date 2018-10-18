@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const PricingContainer = styled.View`
+export const PricingContainer = styled.KeyboardAvoidingView`
     flex: 1;
     justify-content: center;
     align-items: center;
@@ -16,4 +16,13 @@ export const ButtonText = styled.Text`
     font-size: 24px;
     font-weight: 200;
     letter-spacing: 2px;
+`
+
+export const InputBox = styled.TextInput`
+    margin-bottom: 5px;
+    color: #FAFAFA;
+`
+
+export const ScrollingContainer = styled.ScrollView`
+    flex: 1;
 `
