@@ -22,7 +22,7 @@ export default class PredictPrice extends React.Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${AZURE_ML_KEY}`,
+          Authorization: `Bearer ${process.env.AZURE_ML_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
