@@ -17,7 +17,7 @@
     "ios": "react-native-scripts ios",
     "test": "jest",
     "slides": "mdx-deck slides.mdx",
-    "slides:build": "mdx-deck build slides.mdx"
+    "slides:build": "mdx-deck build --no-html slides.mdx"
   },
   "jest": {
     "preset": "jest-expo"
