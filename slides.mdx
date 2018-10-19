@@ -7,10 +7,16 @@ John Paul Ada
 
 ---
 
+<img src="images/react.png" width="150" height="150" />
+
 ## React Native
 
 A React **renderer** that **renders to native** mobile components,
 allowing us to create near-native mobile apps in both **Android** and **iOS** with the same code.
+
+```notes
+Cross-Platform
+```
 
 ---
 
@@ -18,6 +24,22 @@ allowing us to create near-native mobile apps in both **Android** and **iOS** wi
 
 Allows a machine to **learn by experiencing** something,
 which allows us to do things with a computer **without explicitly programming** it to do so.
+
+```notes
+An example would be teaching a computer to recognize faces or food by having it experience what a face or food is.
+```
+
+---
+
+## Why Do Machine Learning in React Native?
+
+---
+
+If you know how to use JavaScript and React, it's very easy to start creating React Native apps.
+
+---
+
+If you know how to do Machine Learning, you don't need anything special to use it in React Native.
 
 ---
 
@@ -105,6 +127,24 @@ which allows us to do things with a computer **without explicitly programming** 
 *How It Was Built*: **tfjs-node**
 
 *How To Access It*: **Reading files**
+
+---
+
+<CodeSurfer
+  title="Using tfjs-node"
+  code={require("!raw-loader!./snippets/tfjs.js")}
+  lang="javascript"
+  showNumbers={true}
+  dark={true}
+  steps={[
+    { notes: "Using TensorFlow.js in Node"},
+    { lines: [1], notes: "Import the actual TensorFlow.js library" },
+    { lines: [2], notes: "Import tfjs-node to enable TensorFlow.js in Node" },
+    { range: [4, 7], notes: "MobileNet URL useable with TensorFlow.js" },
+    { lines: [9], notes: "Wait for the model to load" },
+    { lines: [11], notes: "Use the model to predict the output using the input" }
+  ]}
+/>
 
 ---
 
