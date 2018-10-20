@@ -1,7 +1,11 @@
 import ApolloClient from "apollo-boost";
 
+const GRAPHQL_URL = process.env.GRAPHQL_URL
+
+console.log(GRAPHQL_URL)
+
 const FaceClient = new ApolloClient({
-  uri: "http://192.168.8.100:8000/graphql"
+  uri: GRAPHQL_URL
 });
 
 export default FaceClient
